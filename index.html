@@ -9,7 +9,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overflow:hidden;}
 
-/* ---------------- Auth Views (Login / Register) ---------------- */
+/* ---------------- Auth Views (Login / Register / Loading) ---------------- */
 .auth-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center; z-index: 100; transition: opacity 0.3s ease; }
 .auth-wrapper.hidden { opacity: 0; pointer-events: none; }
 .auth-box { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 8px; width: 100%; max-width: 400px; padding: 40px; box-shadow: 0 0 50px rgba(0,0,0,0.8); position: relative; overflow: hidden;}
@@ -31,14 +31,8 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .auth-label a:hover { text-decoration: underline; }
 
 .auth-input { width: 100%; background: #111; border: 1px solid #222; color: #fff; padding: 12px 16px; border-radius: 6px; font-size: 13px; outline: none; transition: border 0.2s; }
-.auth-input:focus { border-color: #555; }
+.auth-input:focus { border-color: #f5a623; }
 .auth-input::placeholder { color: #555; }
-
-.auth-checkbox { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; cursor: pointer; }
-.auth-checkbox input { appearance: none; width: 16px; height: 16px; background: #111; border: 1px solid #333; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.auth-checkbox input:checked { border-color: #f5a623; }
-.auth-checkbox input:checked::after { content: ''; width: 8px; height: 8px; background: #f5a623; border-radius: 50%; }
-.auth-checkbox span { color: #fff; font-size: 12px; font-weight: bold; }
 
 .auth-btn { width: 100%; background: #f5a623; color: #111; border: none; padding: 14px; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; margin-bottom: 20px; }
 .auth-btn:hover { opacity: 0.9; }
@@ -59,10 +53,7 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .nav-tab{padding:6px 14px;font-size:13px;color:#888;cursor:pointer;border-radius:6px;border:none;background:none;transition:all .15s; display: flex; align-items: center; gap: 6px; white-space: nowrap;}
 .nav-tab:hover{color:#ccc;background:#222}
 .nav-tab.active{background:#f5a623;color:#111;font-weight:600}
-.nav-tab[data-target="view-manage"].active, 
-.nav-tab[data-target="view-shop"].active, 
-.nav-tab[data-target="view-topup"].active, 
-.nav-tab[data-target="view-profile"].active { background: #2a1f00; color: #f5a623; border: 1px solid #4a3200; }
+.nav-tab[data-target="view-admin"] { background: #4a1c1c; color: #ff8a80; border: 1px solid #b71c1c; }
 
 .nav-right{display:flex;align-items:center;gap:10px}
 .badge{background:#1e3a1e;color:#4caf50;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;border:1px solid #2d5a2d}
@@ -93,10 +84,8 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .welcome-brand { color: #555; font-size: 13px; }
 .section-title { font-size: 13px; color: #888; margin-bottom: 12px; margin-top: 30px; }
 
-.status-card { background: #161616; border: 1px solid #222; border-radius: 10px; padding: 20px; display: flex; align-items: center; gap: 20px; }
-.status-card.flex-between { justify-content: space-between; }
+.status-card { background: #161616; border: 1px solid #222; border-radius: 10px; padding: 20px; display: flex; align-items: center; gap: 20px; justify-content: space-between;}
 .status-left { display: flex; align-items: center; gap: 20px; }
-
 .icon-box { width: 45px; height: 45px; background: #222; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
 .icon-dash { width: 14px; height: 2px; background: #888; }
 .icon-signal { display: flex; gap: 3px; align-items: flex-end; height: 16px; }
@@ -109,12 +98,6 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .btn-action { border-radius: 6px; padding: 8px 24px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; border: none; }
 .btn-action:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.btn-start { background: #1e3a1e; color: #4caf50; border: 1px solid #2d5a2d; }
-.btn-start:hover:not(:disabled) { background: #2d5a2d; color: #fff; }
-
-.btn-stop { background: #3a1e1e; color: #e57373; border: 1px solid #5a2d2d; }
-.btn-stop:hover:not(:disabled) { background: #5a2d2d; color: #fff; }
-
 /* ---------------- Settings View ---------------- */
 .sidebar{width:220px;background:#161616;border-right:1px solid #222;padding:16px 12px;flex-shrink:0;overflow-y:auto}
 .sidebar-title{font-size:11px;font-weight:700;color:#f5a623;margin-bottom:12px;display:flex;align-items:center;gap:6px}
@@ -123,12 +106,9 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .preset-item:hover{background:#222;border-color:#333}
 .preset-item.active{background:#2a1f00;border-color:#f5a623}
 .preset-dot{width:26px;height:26px;border-radius:50%;background:#f5a623;color:#111;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.preset-dot.d{background:#e57373;color:#111}
 .preset-info{flex:1;min-width:0}
 .preset-name{font-size:12px;font-weight:600;color:#ddd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .preset-sub{font-size:10px;color:#555;margin-top:1px}
-
-/* ปุ่มลบใน Sidebar */
 .sidebar-delete-btn { position: absolute; right: 10px; background: none; border: none; color: #888; cursor: pointer; font-size: 14px; opacity: 0; transition: opacity 0.2s; }
 .preset-item:hover .sidebar-delete-btn { opacity: 1; }
 .sidebar-delete-btn:hover { color: #e57373; }
@@ -170,7 +150,6 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .toggle.on{background:#f5a623;border-color:#f5a623}
 .toggle-knob{width:14px;height:14px;background:#555;border-radius:50%;position:absolute;top:2px;left:2px;transition:all .2s}
 .toggle.on .toggle-knob{left:18px;background:#111}
-.dots-btn{background:none;border:none;color:#444;cursor:pointer;font-size:16px;letter-spacing:2px}
 
 /* ---------------- Search Preset View ---------------- */
 .search-main { flex: 1; min-width: 0; padding: 30px; background: #0a0a0a; overflow-y: auto; }
@@ -178,61 +157,33 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .search-title-box h2 { color: #f5a623; font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
 .search-title-box p { color: #888; font-size: 13px; }
 .btn-refresh { background: #f5a623; color: #111; border: none; border-radius: 8px; padding: 8px 16px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-
 .search-section-title { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 .search-section-title span { color: #f5a623; font-size: 18px; }
-
 .preset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
-
 .scard { background: #111; border: 1px solid #222; border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 14px; transition: border 0.2s; position: relative; }
-.scard:hover { border-color: #444; }
-
 .scard-icon { width: 42px; height: 42px; border-radius: 50%; background: #f5a623; color: #111; font-weight: 700; font-size: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; }
-.scard-icon.bg-dark { background: #333; color: #fff; }
 .scard-icon.bg-blue { background: #5c6bc0; color: #fff; }
 .scard-icon.bg-fire { background: linear-gradient(45deg, #f5a623, #e53935); color: #fff; }
-.icon-badge { position: absolute; bottom: -2px; right: -2px; background: #111; color: #fff; font-size: 8px; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #333; }
-
 .scard-info { flex: 1; min-width: 0; }
 .scard-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .scard-title { color: #fff; font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .scard-hot-tag { background: #222; color: #aaa; font-size: 10px; padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;}
-
 .scard-sub { color: #888; font-size: 11px; margin-bottom: 8px; }
-.scard-sub span { color: #ccc; }
-
-.scard-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.tag-lock { color: #e57373; font-size: 10px; background: #2a1111; padding: 2px 6px; border-radius: 4px; border: 1px solid #4a1c1c; display: inline-flex; align-items: center; gap: 4px;}
-.tag-hide { color: #f5a623; font-size: 10px; background: #2a2211; padding: 2px 6px; border-radius: 4px; border: 1px solid #4a3a1c; display: inline-flex; align-items: center; gap: 4px;}
-
 .scard-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; height: 100%; min-height: 50px; }
 .scard-type-tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; position: absolute; top: 12px; right: 16px;}
 .scard-type-user { background: #1a1a1a; color: #888; border: 1px solid #333; }
 .scard-type-vip { background: #2a2200; color: #f5a623; border: 1px solid #4a3a00; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;}
-
 .btn-use { background: #f5a623; color: #111; border: none; border-radius: 6px; padding: 6px 16px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; margin-top: auto;}
 .btn-detail { background: #f5a623; color: #111; border: none; border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; margin-top: auto;}
-
-.search-bar-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .search-input-wrapper { position: relative; }
 .search-input-wrapper span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #666; }
 .search-input { background: #111; border: 1px solid #333; color: #fff; padding: 8px 16px 8px 32px; border-radius: 8px; font-size: 12px; width: 280px; outline: none; transition: border 0.2s;}
-.search-input:focus { border-color: #f5a623; }
-
-.pagination { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 10px; padding-bottom: 40px; }
-.page-btn { background: #111; border: 1px solid #222; color: #888; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s;}
-.page-btn:hover { background: #222; color: #fff; }
-.page-btn.active { background: #f5a623; color: #111; border-color: #f5a623; font-weight: 700; }
-.page-dots { color: #888; padding: 0 4px; }
 
 /* ---------------- Manage Presets View ---------------- */
 .manage-main { flex: 1; min-width: 0; padding: 30px; background: #0a0a0a; overflow-y: auto; }
 .manage-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px;}
 .manage-title-box h2 { color: #fff; font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
 .manage-title-box h2 span { color: #f5a623; }
-.manage-title-box p { color: #888; font-size: 13px; }
-.btn-create-new { background: #f5a623; color: #111; border: none; border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: opacity 0.2s; }
-.btn-create-new:hover { opacity: 0.9; }
 .manage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
 .empty-state { color: #666; text-align: center; padding: 50px; border: 1px dashed #333; border-radius: 10px; grid-column: 1 / -1; }
 
@@ -241,8 +192,6 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .shop-header-top { margin-bottom: 20px; }
 .shop-title-box h2 { color: #fff; font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
 .shop-title-box h2 span { color: #f5a623; }
-.shop-title-box p { color: #888; font-size: 13px; }
-
 .shop-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
 .shop-stat-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 16px; }
 .shop-stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
@@ -254,7 +203,6 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .shop-stat-value { color: #fff; font-size: 20px; font-weight: 700; }
 .shop-stat-value.green { color: #4caf50; }
 .shop-stat-value.gold { color: #f5a623; }
-
 .shop-section-title { color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; margin-top: 30px;}
 .shop-section-title span { color: #f5a623; }
 
@@ -271,101 +219,57 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 .vip-input-group { margin-bottom: 16px; }
 .vip-label { color: #888; font-size: 12px; margin-bottom: 8px; display: block; font-weight: bold; }
 .vip-input { width: 100%; background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px 12px; border-radius: 6px; font-size: 14px; outline: none; }
-.vip-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 14px; color: #888; }
-.vip-total-val { color: #4caf50; font-weight: 700; font-size: 16px; }
 .btn-vip { width: 100%; padding: 12px; border-radius: 8px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: opacity 0.2s; }
 .btn-vip:hover { opacity: 0.9; }
 .btn-vip.standard { background: #222; color: #666; cursor: not-allowed; }
 .btn-vip.super { background: #3a2a00; color: #f5a623; border: 1px solid #4a3a00; }
 
-.exchange-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 30px; }
-.exchange-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 24px 16px; text-align: center; position: relative; }
-.exchange-badge { position: absolute; top: -10px; right: 20px; background: #f5a623; color: #111; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 12px; }
-.exchange-icon { font-size: 24px; color: #f5a623; margin-bottom: 12px; }
-.exchange-label { color: #888; font-size: 12px; margin-bottom: 4px; }
-.exchange-val-points { color: #4caf50; font-size: 24px; font-weight: 700; }
-.exchange-val-sub { color: #666; font-size: 11px; margin-bottom: 12px; }
-.exchange-arrow { color: #555; font-size: 16px; margin-bottom: 12px; }
-.exchange-val-coins { color: #f5a623; font-size: 24px; font-weight: 700; }
-.exchange-rate { background: #2a1f00; color: #f5a623; font-size: 10px; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-top: 8px; margin-bottom: 20px; border: 1px solid #4a3200; }
-.btn-exchange { width: 100%; background: #1a1a1a; color: #666; border: 1px solid #222; padding: 10px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: not-allowed; display: flex; justify-content: center; align-items: center; gap: 6px; }
-
-/* ---------------- Topup View ---------------- */
+/* ---------------- Topup View (QR Code) ---------------- */
 .topup-main { flex: 1; min-width: 0; padding: 30px; background: #0a0a0a; overflow-y: auto; }
-.topup-header-top { margin-bottom: 30px; }
-.topup-title-box h2 { color: #fff; font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.topup-title-box h2 span { color: #f5a623; }
-.topup-title-box p { color: #888; font-size: 13px; }
-
-.topup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-.topup-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 24px; margin-bottom: 20px;}
-.topup-card-header { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-.topup-card-header span { color: #f5a623; font-size: 20px; }
-
-.amount-label { color: #fff; font-size: 13px; font-weight: bold; margin-bottom: 10px; display: block; }
-.amount-btn-group { display: flex; gap: 8px; margin-bottom: 16px; }
-.amount-btn { background: #1a1a1a; color: #888; border: 1px solid #333; border-radius: 6px; padding: 6px 12px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+.topup-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 30px; margin-bottom: 20px; max-width: 600px; margin: 0 auto; text-align: center;}
+.amount-btn-group { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+.amount-btn { background: #1a1a1a; color: #888; border: 1px solid #333; border-radius: 6px; padding: 10px 20px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
 .amount-btn:hover { background: #222; color: #fff; }
-.amount-btn.active { background: #2a1f00; color: #f5a623; border-color: #4a3200; }
+.amount-btn.active { background: #2a1f00; color: #f5a623; border-color: #f5a623; }
 
-.amount-input { width: 100%; background: #161616; border: 1px solid #333; color: #fff; padding: 16px; border-radius: 8px; font-size: 18px; text-align: center; margin-bottom: 8px; outline: none; font-weight: bold; }
-.amount-hint { color: #666; font-size: 11px; margin-bottom: 20px; display: block; }
-
-.btn-generate-qr { width: 100%; background: #a67c00; color: #111; border: none; border-radius: 8px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: background 0.2s; }
-.btn-generate-qr:hover { background: #c29200; }
-
-/* ---------------- Profile View ---------------- */
+/* ---------------- Profile View (NEW) ---------------- */
 .profile-main { flex: 1; min-width: 0; padding: 30px; background: #0a0a0a; overflow-y: auto; }
 .profile-content-wrapper { max-width: 900px; margin: 0 auto; width: 100%; }
-
-.profile-header-top { margin-bottom: 30px; }
-.profile-title-box h2 { color: #fff; font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.profile-title-box h2 span { color: #f5a623; }
-.profile-title-box p { color: #888; font-size: 13px; }
-
 .profile-section-title { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; margin-top: 24px;}
-
 .profile-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 24px; margin-bottom: 20px;}
-
 .profile-stat-flex { display: flex; align-items: center; gap: 16px; }
 .p-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
 .p-icon-green { background: #1e3a1e; color: #4caf50; }
 .p-icon-gray { background: #222; color: #aaa; }
-
 .p-info { flex: 1; }
 .p-label { color: #888; font-size: 12px; margin-bottom: 4px; }
 .p-value-green { color: #4caf50; font-size: 18px; font-weight: 700; }
 .p-value-white { color: #fff; font-size: 18px; font-weight: 700; }
+.p-input-label { color: #fff; font-size: 13px; font-weight: bold; margin-bottom: 8px; display: block; }
+.p-input { width: 100%; background: #161616; border: 1px solid #333; color: #f5a623; padding: 12px 16px; border-radius: 8px; font-size: 14px; outline: none; transition: border 0.2s;}
+.p-btn-save { background: #f5a623; color: #111; border: none; border-radius: 8px; padding: 10px 24px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; margin-top: 15px; transition: opacity 0.2s;}
 
 /* ---------------- Admin View ---------------- */
-#view-admin .manage-main { background: #111; }
 .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #161616; border-radius: 8px; overflow: hidden; }
 .admin-table th, .admin-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #222; font-size: 13px; color: #ccc; }
-.admin-table th { background: #1a1a1a; color: #f5a623; font-weight: bold; text-transform: uppercase; }
-.admin-table tr:hover { background: #222; }
+.admin-table th { background: #1a1a1a; color: #f5a623; font-weight: bold; }
 .btn-edit-user { background: #5c6bc0; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; margin-bottom: 4px; width: 100%;}
 .btn-delete-admin { background: #e57373; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
 
-/* ---------------- Modals ---------------- */
+/* Alert Box */
+.toast-alert { position: fixed; bottom: 30px; right: 30px; background: #f5a623; color: #111; padding: 12px 24px; border-radius: 8px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: all 0.3s ease; z-index: 1000;}
+.toast-alert.show { transform: translateY(0); opacity: 1; }
+
+/* Modals */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
 .modal-overlay.show { opacity: 1; pointer-events: auto; }
 .modal-box { background: #111; border: 1px solid #333; border-radius: 12px; width: 90%; max-width: 400px; padding: 24px; transform: translateY(-20px); transition: transform 0.2s; }
 .modal-overlay.show .modal-box { transform: translateY(0); }
 .modal-title { color: #f5a623; font-size: 18px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
 .modal-input { width: 100%; background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 6px; font-size: 14px; outline: none; margin-bottom: 20px; }
-.modal-input:focus { border-color: #f5a623; }
 .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 .btn-modal-cancel { background: #222; color: #ccc; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 .btn-modal-confirm { background: #f5a623; color: #111; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-.btn-modal-cancel:hover { background: #333; }
-.btn-modal-confirm:hover { opacity: 0.9; }
-
-.share-code-box { background: #000; border: 1px dashed #5c6bc0; padding: 12px; border-radius: 6px; margin-bottom: 15px; font-family: monospace; color: #fff; word-break: break-all; text-align: center; }
-
-/* Alert Box */
-.toast-alert { position: fixed; bottom: 30px; right: 30px; background: #f5a623; color: #111; padding: 12px 24px; border-radius: 8px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: all 0.3s ease; z-index: 1000;}
-.toast-alert.show { transform: translateY(0); opacity: 1; }
 </style>
 
 <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
@@ -388,11 +292,17 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
       auth = firebase.auth();
   } catch (e) { console.log("Firebase Init error", e); }
 </script>
-
 </head>
 <body>
 
-<div id="auth-login" class="auth-wrapper">
+<div id="auth-loading" class="auth-wrapper">
+    <div style="color:#f5a623; font-size:20px; font-weight:bold; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+        <div class="auth-logo-icon" style="width: 50px; height: 50px; font-size: 24px;">H</div>
+        กำลังตรวจสอบบัญชี...
+    </div>
+</div>
+
+<div id="auth-login" class="auth-wrapper hidden">
     <div class="auth-box">
         <div class="auth-content">
             <div class="auth-logo">
@@ -404,16 +314,14 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
             </div>
             <div class="auth-form-group">
                 <div class="auth-label">อีเมล</div>
-                <input type="email" id="login-email" class="auth-input" placeholder="กรอกอีเมล (เช่น user@haibet.com)">
+                <input type="email" id="login-email" class="auth-input" placeholder="กรอกอีเมล">
             </div>
             <div class="auth-form-group">
                 <div class="auth-label">รหัสผ่าน</div>
                 <input type="password" id="login-password" class="auth-input" placeholder="กรอกรหัสผ่าน">
             </div>
             <button class="auth-btn" onclick="performLogin()">เข้าสู่ระบบ</button>
-            <div class="auth-switch">
-                ยังไม่มีบัญชี? <a onclick="showRegister()">สมัครสมาชิก</a>
-            </div>
+            <div class="auth-switch">ยังไม่มีบัญชี? <a onclick="showRegister()">สมัครสมาชิก</a></div>
         </div>
     </div>
 </div>
@@ -425,55 +333,37 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
                 <div class="auth-logo-icon">H</div>
                 <div class="auth-logo-text">
                     <span class="auth-logo-title">สมัครสมาชิก</span>
-                    <span class="auth-logo-sub">สร้างบัญชีเพื่อเข้าใช้งาน Hai.Bet</span>
+                    <span class="auth-logo-sub">สร้างบัญชีเพื่อเข้าใช้งาน</span>
                 </div>
             </div>
             <div class="auth-form-group row-2">
-                <div>
-                    <div class="auth-label">อีเมล <span class="req">*</span></div>
-                    <input type="email" id="reg-email" class="auth-input" placeholder="example@email.com">
-                </div>
-                <div>
-                    <div class="auth-label">รหัสผ่าน <span class="req">*</span></div>
-                    <input type="password" id="reg-password" class="auth-input" placeholder="อย่างน้อย 6 ตัวอักษร">
-                </div>
+                <div><div class="auth-label">อีเมล <span class="req">*</span></div><input type="email" id="reg-email" class="auth-input"></div>
+                <div><div class="auth-label">รหัสผ่าน <span class="req">*</span></div><input type="password" id="reg-password" class="auth-input"></div>
             </div>
             <div class="auth-form-group row-2">
-                <div>
-                    <div class="auth-label">ยืนยันรหัสผ่าน <span class="req">*</span></div>
-                    <input type="password" id="reg-confirm-password" class="auth-input" placeholder="พิมพ์รหัสผ่านอีกครั้ง">
-                </div>
-                <div>
-                    <div class="auth-label">Windows SID <span class="req">*</span> <a onclick="openSidModal()">หา SID ยังไง?</a></div>
-                    <input type="text" id="reg-sid" class="auth-input" placeholder="S-1-5-21-...">
-                </div>
+                <div><div class="auth-label">ยืนยันรหัสผ่าน <span class="req">*</span></div><input type="password" id="reg-confirm-password" class="auth-input"></div>
+                <div><div class="auth-label">Windows SID <span class="req">*</span> <a onclick="openSidModal()">หา SID ยังไง?</a></div><input type="text" id="reg-sid" class="auth-input"></div>
             </div>
             <div class="auth-form-group">
                 <div class="auth-label">License Key <span class="req">*</span></div>
                 <input type="text" id="reg-license" class="auth-input" placeholder="กรอก License Key ที่ซื้อมาจากแอดมิน">
             </div>
             <button class="auth-btn" onclick="performRegister()">สมัครสมาชิก</button>
-            <div class="auth-switch">
-                มีบัญชีอยู่แล้ว? <a onclick="showLogin()">เข้าสู่ระบบ</a>
-            </div>
+            <div class="auth-switch">มีบัญชีอยู่แล้ว? <a onclick="showLogin()">เข้าสู่ระบบ</a></div>
         </div>
     </div>
 </div>
 
 <div id="app-dashboard">
-
     <nav class="navbar">
-      <div class="logo">
-        <div class="logo-icon">H</div>
-        Hai.Karantee
-      </div>
+      <div class="logo"><div class="logo-icon">H</div>Hai.Karantee</div>
       <div class="nav-tabs">
         <button class="nav-tab active" data-target="view-home">หน้าหลัก</button>
         <button class="nav-tab" data-target="view-settings">ตั้งค่าเกม</button>
         <button class="nav-tab" data-target="view-search">ค้นหา Preset</button>
         <button class="nav-tab" data-target="view-manage">&#128278; จัดการ Presets</button>
         <button class="nav-tab" data-target="view-shop">ร้านค้า</button>
-        <button class="nav-tab" data-target="view-topup">เติมเงิน</button>
+        <button class="nav-tab" data-target="view-topup" style="color:#4caf50; font-weight:bold;">💰 เติมเงิน</button>
         <button class="nav-tab" data-target="view-profile">โปรไฟล์</button>
         <button class="nav-tab" id="nav-admin" data-target="view-admin" style="display:none; background:#4a1c1c; color:#ff8a80; border:1px solid #b71c1c;">&#128273; ระบบแอดมิน</button>
       </div>
@@ -484,8 +374,8 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
             <span class="status-dot" id="global-dot"></span>
             <span class="status-text" id="global-text">ออฟไลน์</span>
         </div>
-        <button class="user-btn" id="navbar-user-btn" style="display:flex; align-items:center;">S &nbsp;Loading... &#9660;</button>
-        <button class="logout-btn" onclick="performLogout()">[ ออกจากระบบ ]</button>
+        <button class="user-btn" id="navbar-user-btn">👤 Loading... &#9660;</button>
+        <button class="logout-btn" style="background:none; border:none; color:#e57373; cursor:pointer; text-decoration:underline; font-weight:bold;" onclick="performLogout()">[ ออกจากระบบ ]</button>
       </div>
     </nav>
 
@@ -524,8 +414,8 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn-action btn-start" id="btn-start">Start</button>
-                    <button class="btn-action btn-stop" id="btn-stop" disabled>Stop</button>
+                    <button class="btn-action btn-start" id="btn-start" style="background:#1e3a1e; color:#4caf50; border:1px solid #2d5a2d;">Start</button>
+                    <button class="btn-action btn-stop" id="btn-stop" disabled style="background:#3a1e1e; color:#e57373; border:1px solid #5a2d2d;">Stop</button>
                 </div>
             </div>
         </div>
@@ -671,10 +561,10 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
           </div>
 
           <div class="search-bar-container" style="margin-top: 20px;">
-              <div class="search-section-title" style="margin:0;"><span>&#128101;</span> Preset ของผู้ใช้อื่น (อัปเดตแบบเรียลไทม์)</div>
+              <div class="search-section-title" style="margin:0;"><span>&#128101;</span> Preset ของผู้ใช้อื่น (ออนไลน์)</div>
               <div class="search-input-wrapper">
                   <span>&#128269;</span>
-                  <input type="text" class="search-input" placeholder="ค้นหาจากชื่อ Preset หรือ Nickname">
+                  <input type="text" id="search-preset-input" class="search-input" placeholder="พิมพ์ชื่อ Preset ที่ต้องการหา..." onkeyup="filterCommunityPresets()">
               </div>
           </div>
           
@@ -689,7 +579,7 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
           <div class="manage-header-top">
               <div class="manage-title-box">
                   <h2><span>&#128278;</span> จัดการ Presets</h2>
-                  <p>จัดการ Presets ของคุณ - แก้ไข, ลบ, จัดการ License Keys และผู้ใช้งาน</p>
+                  <p>จัดการ Presets ของคุณ ลบ หรือเพิ่มใหม่</p>
               </div>
               <button class="btn-create-new btn-create-preset" onclick="openModal()">+ สร้าง Preset ใหม่</button>
           </div>
@@ -699,100 +589,48 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
     </div>
 
     <div id="view-shop" class="view-container">
-      <div class="shop-main">
-          <div class="shop-header-top">
-              <div class="shop-title-box">
-                  <h2><span>&#128717;</span> ร้านค้า</h2>
-                  <p>เช่า VIP และแลก Premium Coins</p>
-              </div>
-          </div>
-
-          <div class="shop-stats-grid">
-              <div class="shop-stat-card">
-                  <div class="shop-stat-icon icon-green">&#128181;</div>
-                  <div class="shop-stat-info">
-                      <div class="shop-stat-label">Points</div>
-                      <div class="shop-stat-value green" id="shop-points">0</div>
-                  </div>
-              </div>
-              <div class="shop-stat-card">
-                  <div class="shop-stat-icon icon-gold">&#128142;</div>
-                  <div class="shop-stat-info">
-                      <div class="shop-stat-label">Premium Coins</div>
-                      <div class="shop-stat-value gold" id="shop-coins">0</div>
-                  </div>
-              </div>
-              <div class="shop-stat-card">
-                  <div class="shop-stat-icon icon-gray">&#128081;</div>
-                  <div class="shop-stat-info">
-                      <div class="shop-stat-label">สถานะ VIP</div>
-                      <div class="shop-stat-value" id="shop-vip">User</div>
-                  </div>
-              </div>
-          </div>
-
-          <div class="shop-section-title">&#128081; เช่า VIP</div>
-          <div class="vip-grid">
-              <div class="vip-card">
-                  <div class="vip-header standard">&#128081; VIP</div>
-                  <div class="vip-price">ราคา: 15 Points/วัน</div>
-                  <ul class="vip-benefits">
-                      <li>สิทธิประโยชน์ VIP</li>
-                      <li>ปลดล็อคการตั้งค่า "รีตัวไว ไม้ (เข้าประเทศแล้วให้จับถือไม้)" (5 การตั้งค่า)</li>
-                      <li>ปลดล็อคการตั้งค่า "รีตัวไว มีด (เข้าประเทศแล้วให้จับถือมีด)" (5 การตั้งค่า)</li>
-                      <li>ค่าบันทึกการตั้งค่าถูกกว่า User</li>
-                  </ul>
-                  <div class="vip-input-group">
-                      <span class="vip-label">จำนวนวัน</span>
-                      <input type="number" id="buy-vip-days" class="vip-input" value="1" min="1">
-                  </div>
-                  <button class="btn-vip standard" style="background:#2a1f00; border: 1px solid #f5a623; color:#f5a623; cursor:pointer;" onclick="buyVIP('VIP', 15, 'buy-vip-days')">&#128722; เช่า VIP</button>
-              </div>
-
-              <div class="vip-card vip-card-super">
-                  <div class="vip-header super">&#128081; Super VIP</div>
-                  <div class="vip-price">ราคา: 40 Points/วัน</div>
-                  <ul class="vip-benefits">
-                      <li style="color:#f5a623;">สิทธิประโยชน์ Super VIP</li>
-                      <li>ปลดล็อคการตั้งค่า "รีตัวไว ไม้ (เข้าประเทศแล้วให้จับถือไม้)" (5 การตั้งค่า)</li>
-                      <li>ปลดล็อคการตั้งค่า "รีตัวไว มีด (เข้าประเทศแล้วให้จับถือมีด)" (5 การตั้งค่า)</li>
-                      <li>สร้าง Preset ได้ (50 Points/Preset, 24 ชม.)</li>
-                      <li>จัดการประกาศของตัวเองได้</li>
-                      <li>ค่าบันทึกการตั้งค่าถูกที่สุด</li>
-                  </ul>
-                  <div class="vip-input-group">
-                      <span class="vip-label">จำนวนวัน</span>
-                      <input type="number" id="buy-svip-days" class="vip-input" value="1" min="1">
-                  </div>
-                  <button class="btn-vip super" onclick="buyVIP('Super VIP', 40, 'buy-svip-days')">&#128722; เช่า Super VIP</button>
-              </div>
-          </div>
-      </div>
+        <div class="home-main">
+            <h2 style="color:#fff; margin-bottom:20px;">ร้านค้า VIP</h2>
+            <div style="display:flex; gap:20px;">
+                <div class="status-card" style="flex:1; flex-direction:column; align-items:flex-start;">
+                    <h3 style="color:#f5a623;">VIP ปกติ (15 Points/วัน)</h3>
+                    <p style="color:#888; font-size:12px; margin: 10px 0;">ปลดล็อคการตั้งค่าอาวุธระดับ VIP</p>
+                    <input type="number" id="buy-vip-days" value="1" style="background:#111; border:1px solid #333; color:#fff; padding:10px; width:100%; margin-bottom:10px;">
+                    <button class="auth-btn" style="margin:0;" onclick="buyVIP('VIP', 15, 'buy-vip-days')">เช่า VIP</button>
+                </div>
+                <div class="status-card" style="flex:1; flex-direction:column; align-items:flex-start; border-color:#f5a623;">
+                    <h3 style="color:#f5a623;">Super VIP (40 Points/วัน)</h3>
+                    <p style="color:#888; font-size:12px; margin: 10px 0;">ปลดล็อคทุกฟีเจอร์ระดับสูงสุด</p>
+                    <input type="number" id="buy-svip-days" value="1" style="background:#111; border:1px solid #333; color:#fff; padding:10px; width:100%; margin-bottom:10px;">
+                    <button class="auth-btn" style="margin:0;" onclick="buyVIP('Super VIP', 40, 'buy-svip-days')">เช่า Super VIP</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="view-topup" class="view-container">
       <div class="topup-main">
-          <div class="topup-header-top">
-              <div class="topup-title-box">
-                  <h2><span>&#8862;</span> เติมเงิน</h2>
-                  <p>จำลองการเติมเงิน (ได้พอยต์ทันทีเพื่อทดสอบระบบ)</p>
+          <h2 style="color:#fff; margin-bottom: 10px;"><span>&#8862;</span> เติม Points สแกนจ่ายอัตโนมัติ</h2>
+          <p style="color:#888; font-size:13px; margin-bottom: 30px;">สแกน QR Code ผ่านแอปธนาคาร จากนั้นกดปุ่มแจ้งโอนเงิน</p>
+
+          <div class="topup-card">
+              <span class="amount-label" style="color:#fff; font-size:14px; font-weight:bold; margin-bottom:15px; display:block;">1. เลือกจำนวนเงินที่ต้องการเติม (1 บาท = 1 Point)</span>
+              <div class="amount-btn-group">
+                  <button class="amount-btn active" id="btn-amt-50" onclick="setTopupAmount(50)">฿50</button>
+                  <button class="amount-btn" id="btn-amt-90" onclick="setTopupAmount(90)">฿90</button>
+                  <button class="amount-btn" id="btn-amt-150" onclick="setTopupAmount(150)">฿150</button>
+                  <button class="amount-btn" id="btn-amt-300" onclick="setTopupAmount(300)">฿300</button>
               </div>
-          </div>
-          <div class="topup-grid">
-              <div class="topup-form-column">
-                  <div class="topup-card">
-                      <div class="topup-card-header"><span>&#8862;</span> จำลองการโอนเงิน</div>
-                      <span class="amount-label">จำนวนเงิน (บาท) = (Points)</span>
-                      <div class="amount-btn-group">
-                          <button class="amount-btn">฿10</button>
-                          <button class="amount-btn">฿50</button>
-                          <button class="amount-btn">฿100</button>
-                          <button class="amount-btn">฿500</button>
-                      </div>
-                      <input type="number" id="simulate-amount" class="amount-input" value="10.00">
-                      <button class="btn-generate-qr" onclick="simulateTopup()">&#8862; กดเพื่อเติม Points ทันที</button>
+
+              <div style="background:#1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 20px; margin: 25px 0;">
+                  <span class="amount-label" style="color:#fff; font-size:14px; font-weight:bold; margin-bottom:15px; display:block;">2. สแกน QR Code ด้านล่างเพื่อจ่ายเงิน</span>
+                  <img id="promptpay-qr" src="" alt="QR Code" style="width: 220px; height: 220px; border-radius: 10px; border: 3px solid #f5a623; background:#fff; padding:10px;">
+                  <div style="margin-top: 15px; color: #fff; font-size: 18px;">
+                      ยอดที่ต้องโอน: <span id="display-amount" style="color:#4caf50; font-size:24px; font-weight:bold;">50</span> บาท
                   </div>
               </div>
+              <button class="auth-btn" style="background:#4caf50; color:#fff;" onclick="notifyAdminPayment()">&#10004; สแกนจ่ายเสร็จแล้ว (แจ้งให้แอดมินทราบ)</button>
+              <div style="color:#e57373; font-size:11px; margin-top:10px;">* เมื่อกดแจ้งโอน แอดมินจะตรวจสอบสลิปและเพิ่ม Points ให้ใน 5 นาที</div>
           </div>
       </div>
     </div>
@@ -806,55 +644,65 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
                       <p>จัดการข้อมูลโปรไฟล์ของคุณ</p>
                   </div>
               </div>
-              <div class="profile-section-title">&#128181; Points</div>
+              
+              <div class="profile-section-title">&#9997; ตั้งค่าโปรไฟล์ส่วนตัว</div>
               <div class="profile-card">
-                  <div class="profile-stat-flex">
-                      <div class="p-icon p-icon-green">&#128181;</div>
-                      <div class="p-info">
-                          <div class="p-label">Points ปัจจุบัน</div>
-                          <div class="p-value-green" id="profile-points">0</div>
+                  <div class="p-input-label">ชื่อแสดงผล (Display Name)</div>
+                  <input type="text" id="profile-display-name" class="p-input" placeholder="ตั้งชื่อเล่นหรือชื่อในเกมของคุณ">
+                  <button class="p-btn-save" onclick="saveProfileData()">บันทึกชื่อแสดงผล</button>
+              </div>
+
+              <div class="profile-section-title">&#128181; สถานะบัญชีปัจจุบัน</div>
+              <div style="display:flex; gap:16px;">
+                  <div class="profile-card" style="flex:1;">
+                      <div class="profile-stat-flex">
+                          <div class="p-icon p-icon-green">&#128181;</div>
+                          <div class="p-info">
+                              <div class="p-label">Points ปัจจุบัน</div>
+                              <div class="p-value-green" id="profile-points">0</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="profile-card" style="flex:1;">
+                      <div class="profile-stat-flex">
+                          <div class="p-icon p-icon-gray">&#128081;</div>
+                          <div class="p-info">
+                              <div class="p-label">ระดับ VIP</div>
+                              <div class="p-value-white" id="profile-vip">User</div>
+                          </div>
                       </div>
                   </div>
               </div>
-              <div class="profile-section-title">&#128081; สถานะปัจจุบัน</div>
-              <div class="profile-card">
-                  <div class="profile-stat-flex">
-                      <div class="p-icon p-icon-gray">&#128081;</div>
-                      <div class="p-info">
-                          <div class="p-label">ระดับ</div>
-                          <div class="p-value-white" id="profile-vip">User</div>
-                      </div>
-                  </div>
-              </div>
+
           </div>
       </div>
     </div>
 
     <div id="view-admin" class="view-container">
-      <div class="manage-main">
-          <div class="manage-header-top">
-              <div class="manage-title-box">
-                  <h2><span>&#128273;</span> ระบบผู้ดูแลระบบ (Admin Panel)</h2>
-                  <p>จัดการผู้ใช้งาน, คีย์ลงทะเบียน และ Preset ส่วนกลาง</p>
-              </div>
-              <button class="btn-refresh" onclick="loadAdminData()">&#8635; รีเฟรชข้อมูล</button>
-          </div>
+      <div class="home-main">
+          <h2 style="color:#f5a623; margin-bottom:20px;">ระบบผู้ดูแล (Admin Panel)</h2>
+          <button class="auth-btn" style="width:auto; margin-bottom:20px;" onclick="loadAdminData()">รีเฟรชข้อมูลล่าสุด</button>
+          
+          <h3 style="color:#fff; margin-top:10px; margin-bottom:10px;">📋 แจ้งโอนเงิน (รอตรวจสอบ)</h3>
+          <table class="admin-table" id="admin-topup-table" style="margin-bottom: 40px; border: 1px solid #4a3200;">
+              <tr><th>อีเมล</th><th>ยอดโอน (บาท)</th><th>วันที่แจ้ง</th><th>จัดการ</th></tr>
+          </table>
 
-          <div class="shop-section-title" style="margin-top: 20px; color:#5c6bc0;">&#128273; จัดการ License Keys (สำหรับสมัครสมาชิก)</div>
-          <div style="margin-bottom: 16px; display:flex; gap:10px;">
-              <input type="text" id="admin-new-key" class="auth-input" style="width:250px;" placeholder="พิมพ์ Key หรือเว้นว่างเพื่อสุ่ม">
-              <button class="btn-primary" style="background:#5c6bc0; color:#fff;" onclick="generateNewKeyByAdmin()">สร้าง Key ใหม่</button>
+          <h3 style="color:#fff; margin-bottom:10px;">🔑 จัดการ License Keys (สำหรับลูกค้าสมัครสมาชิก)</h3>
+          <div style="display:flex; gap:10px; margin-bottom:20px;">
+              <input type="text" id="admin-new-key" style="background:#111; color:#fff; border:1px solid #333; padding:10px; border-radius:6px; width:250px;" placeholder="พิมพ์ Key หรือเว้นว่างให้สุ่ม">
+              <button class="auth-btn" style="width:auto; margin:0; background:#5c6bc0;" onclick="generateNewKeyByAdmin()">สร้าง Key ใหม่</button>
           </div>
-          <table class="admin-table" id="admin-keys-table">
+          <table class="admin-table" id="admin-keys-table" style="margin-bottom: 40px;">
               <tr><th>License Key</th><th>สถานะ</th><th>ถูกใช้โดย</th><th>จัดการ</th></tr>
           </table>
-          
-          <div class="shop-section-title" style="margin-top: 40px;">&#128101; รายชื่อผู้ใช้งานในระบบ</div>
-          <table class="admin-table" id="admin-users-table">
-              <tr><th>อีเมล</th><th>Points</th><th>Coins</th><th>สถานะ/SID</th><th>จัดการ</th></tr>
+
+          <h3 style="color:#fff; margin-bottom:10px;">👥 รายชื่อผู้ใช้งานทั้งหมด</h3>
+          <table class="admin-table" id="admin-users-table" style="margin-bottom: 40px;">
+              <tr><th>อีเมล / ชื่อเล่น</th><th>Points</th><th>สถานะ/SID</th><th>จัดการ</th></tr>
           </table>
 
-          <div class="shop-section-title" style="margin-top: 40px;">&#128190; Preset ในระบบออนไลน์ทั้งหมด</div>
+          <h3 style="color:#fff; margin-bottom:10px;">💾 Preset ในระบบออนไลน์ทั้งหมด</h3>
           <table class="admin-table" id="admin-presets-table">
               <tr><th>ชื่อ Preset</th><th>ผู้สร้าง</th><th>วันที่ลง</th><th>จัดการ</th></tr>
           </table>
@@ -898,17 +746,17 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 </div>
 
 <div id="modal-sid-help" class="modal-overlay">
-    <div class="modal-box" style="max-width: 500px;">
+    <div class="modal-box">
         <div class="modal-title"><span>&#128269;</span> วิธีหา Windows SID</div>
         <div style="color: #ccc; font-size: 13px; line-height: 1.6; margin-bottom: 20px;">
-            <p>1. กดปุ่ม <strong>Windows + R</strong> บนคีย์บอร์ดเพื่อเปิดหน้าต่าง Run</p>
-            <p>2. พิมพ์คำว่า <strong>cmd</strong> แล้วกด Enter</p>
-            <p>3. คัดลอกคำสั่งด้านล่างนี้ ไปวางในหน้าต่างสีดำแล้วกด Enter:</p>
-            <div class="share-code-box" style="margin: 10px 0; user-select: all;">wmic useraccount get name,sid</div>
-            <p>4. คัดลอกรหัสที่อยู่บรรทัดเดียวกับชื่อ User ของคุณ (ขึ้นต้นด้วย S-1-5-...) มาใส่ในช่องสมัคร</p>
+            <p>1. กดปุ่ม <strong>Windows + R</strong></p>
+            <p>2. พิมพ์ <strong>cmd</strong> แล้วกด Enter</p>
+            <p>3. คัดลอกคำสั่งด้านล่างนี้ ไปวางแล้วกด Enter:</p>
+            <div style="background:#000; border: 1px dashed #5c6bc0; padding:10px; text-align:center; color:#f5a623; font-family:monospace; margin:10px 0; user-select: all;">wmic useraccount get name,sid</div>
+            <p>4. นำรหัสที่ขึ้นต้นด้วย S-1-5-... มาใส่ในช่องสมัคร</p>
         </div>
         <div class="modal-actions">
-            <button class="btn-modal-confirm" onclick="closeSidModal()">เข้าใจแล้ว</button>
+            <button class="btn-modal-confirm" onclick="document.getElementById('modal-sid-help').classList.remove('show');">เข้าใจแล้ว</button>
         </div>
     </div>
 </div>
@@ -916,9 +764,19 @@ body{background:#000;color:#e0e0e0;font-family:sans-serif;min-height:100vh;overf
 <div id="toast-alert" class="toast-alert">&#10004; ดำเนินการสำเร็จ!</div>
 
 <script>
-// ================= ข้อมูลพื้นฐาน =================
+// ================= ข้อมูลพื้นฐาน & ตัวแปรระบบ =================
 const ADMIN_EMAIL = "admin@haibet.com"; 
 
+// ⚠️ ใส่เบอร์พร้อมเพย์ หรือ เลขบัตรประชาชนของคุณตรงนี้!
+const PROMPTPAY_NUMBER = "0800000000"; 
+
+let currentUserEmail = "User"; 
+let currentUserId = null;
+let userData = { points: 0, coins: 0, vip: 'User', sid: '', displayName: '' };
+let currentTopupAmount = 50;
+let loadingTimeout; // ตัวแปรป้องกันหน้าโหลดค้าง
+
+// ================= ข้อมูล Slider/Toggle (Default Config) =================
 const defaultSliderData = {
     'sliders-a': [
         {id: 'a1', label:'สิงเข้าตัว', val:7.45, min:0, max:15},
@@ -993,49 +851,82 @@ const predefinedPresetsDB = {
     "เริ่มต้น": { settings: { "a1": "7.45", "a2": "5.00", "b1": "7.63", "c1": "6.25" }, toggles: {}, author: "by:WASD", date: "10/4/2026", users: 58, vip: false }
 };
 
-// ================= Firebase Auth & Database =================
-let currentUserEmail = "User"; 
-let currentUserId = null;
-let userData = { points: 0, coins: 0, vip: 'User', sid: '' };
-
+// ================= โหลด Firebase & ข้อมูลผู้ใช้ =================
 document.addEventListener("DOMContentLoaded", () => {
+
+    // ระบบป้องกันหน้า Loading ค้าง: ปิดทิ้งทันทีถ้าใช้เวลาเกิน 3 วินาที
+    loadingTimeout = setTimeout(() => {
+        const loadingScreen = document.getElementById('auth-loading');
+        if (loadingScreen && loadingScreen.style.display !== 'none') {
+            loadingScreen.style.display = 'none';
+            document.getElementById('auth-login').classList.remove('hidden');
+        }
+    }, 3000);
+
     if (typeof auth !== 'undefined') {
         auth.onAuthStateChanged((user) => {
+            clearTimeout(loadingTimeout); // ยกเลิกการนับเวลาถอยหลังถ้าระบบตอบสนองแล้ว
+            document.getElementById('auth-loading').style.display = 'none'; 
+            
             if (user) {
-                document.getElementById('auth-login').style.display = 'none';
-                document.getElementById('auth-register').style.display = 'none';
+                document.getElementById('auth-login').classList.add('hidden');
+                document.getElementById('auth-register').classList.add('hidden');
                 document.getElementById('app-dashboard').classList.add('show');
                 
                 currentUserEmail = user.email.split('@')[0];
                 currentUserId = user.uid;
                 
-                const userNameBtn = document.getElementById('navbar-user-btn');
-                if(userNameBtn) userNameBtn.innerHTML = `S &nbsp;${currentUserEmail} &#9660;`;
+                // อัปเดต UI ทันทีไม่ต้องรอโหลดฐานข้อมูล (แก้บัค Loading มุมขวาบนค้าง)
+                const userBtn = document.getElementById('navbar-user-btn');
+                if(userBtn) userBtn.innerHTML = `👤 ${currentUserEmail} &#9660;`;
 
-                if(user.email === ADMIN_EMAIL) {
-                    document.getElementById('nav-admin').style.display = 'flex';
-                }
+                if(user.email === ADMIN_EMAIL) document.getElementById('nav-admin').style.display = 'flex';
 
                 db.collection('users').doc(user.uid).onSnapshot((doc) => {
                     if (doc.exists) {
                         userData = doc.data();
                         updateEconomyUI();
+                    } else {
+                        updateEconomyUI(); // สำรองเผื่อโหลดข้อมูลพลาด
                     }
                 });
             } else {
                 document.getElementById('app-dashboard').classList.remove('show');
-                document.getElementById('auth-login').style.display = 'flex';
+                document.getElementById('auth-login').classList.remove('hidden');
             }
         });
     } else {
-        document.getElementById('auth-login').style.display = 'flex';
+        clearTimeout(loadingTimeout);
+        document.getElementById('auth-loading').style.display = 'none';
+        document.getElementById('auth-login').classList.remove('hidden');
     }
     
-    initializeAllInputs();
+    // ตั้งค่าเบื้องต้น
+    setTopupAmount(50);
+    initializeAllInputs(); 
     renderMyPresets();
     try { if (typeof db !== 'undefined') loadCommunityPresets(); } catch(e) {}
     
-    // ควบคุมปุ่ม Start / Stop ป้องกันบัค
+    // ผูกปุ่มรีเซ็ตแบบกลุ่ม
+    document.querySelectorAll('.reset-all-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetId = this.dataset.target;
+            if(!targetId) return;
+            
+            if(defaultSliderData[targetId]) {
+                defaultSliderData[targetId].forEach(item => localStorage.removeItem('hk_setting_' + item.id));
+                if(targetId === 'sliders-vip-wood' || targetId === 'sliders-vip-knife') {
+                    checkVipUnlock();
+                } else {
+                    makeSlider(targetId, defaultSliderData[targetId]);
+                }
+            } else if (defaultToggleData[targetId]) {
+                defaultToggleData[targetId].forEach(item => localStorage.removeItem('hk_toggle_' + item.id));
+                makeToggle(targetId, defaultToggleData[targetId]);
+            }
+        });
+    });
+
     const btnStart = document.getElementById('btn-start');
     const btnStop = document.getElementById('btn-stop');
     const sysStatusText = document.getElementById('system-status-text');
@@ -1051,11 +942,7 @@ document.addEventListener("DOMContentLoaded", () => {
             globalDot.classList.add('online');
             globalText.classList.add('online');
             globalText.textContent = 'ออนไลน์';
-            if(signalBars.length >= 3) {
-                signalBars[0].style.background = '#4caf50';
-                signalBars[1].style.background = '#4caf50';
-                signalBars[2].style.background = '#4caf50';
-            }
+            signalBars.forEach(b => b.style.background = '#4caf50');
         });
 
         btnStop.addEventListener('click', () => {
@@ -1065,16 +952,71 @@ document.addEventListener("DOMContentLoaded", () => {
             globalDot.classList.remove('online');
             globalText.classList.remove('online');
             globalText.textContent = 'ออฟไลน์';
-            if(signalBars.length >= 3) {
-                signalBars[0].style.background = '#888';
-                signalBars[1].style.background = '#888';
-                signalBars[2].style.background = '#444';
-            }
+            signalBars[0].style.background = '#888';
+            signalBars[1].style.background = '#888';
+            signalBars[2].style.background = '#444';
         });
     }
 });
 
-// UI Logic
+// ================= ระบบเติมเงิน QR Code PromptPay & แจ้งเตือน Discord =================
+function setTopupAmount(amount) {
+    currentTopupAmount = amount;
+    document.getElementById('display-amount').textContent = amount;
+    document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('btn-amt-' + amount).classList.add('active');
+    const qrUrl = `https://promptpay.io/${PROMPTPAY_NUMBER}/${amount}.png`;
+    document.getElementById('promptpay-qr').src = qrUrl;
+}
+
+function notifyAdminPayment() {
+    if(!currentUserId) return alert("กรุณาเข้าสู่ระบบก่อน");
+    
+    // 1. บันทึกข้อมูลลง Firebase
+    db.collection('topup_requests').add({
+        uid: currentUserId,
+        email: currentUserEmail,
+        amount: currentTopupAmount,
+        date: new Date().toLocaleString('th-TH'),
+        status: 'รอดำเนินการ'
+    }).then(() => {
+        
+        // 2. ส่งการแจ้งเตือนเข้า Discord (Webhook)
+        // ⚠️ เอาลิงก์ Webhook ที่ก๊อปปี้มาจาก Discord มาวางทับตรงนี้ได้เลยครับ!
+        const webhookUrl = "https://discordapp.com/api/webhooks/1492191945043218506/wGrKCTWzFMPyPkyipVrsB_9w27iFDYUyCim5xfGk7jChomeBgQpWIMhiQSrhkKnnOIKD"; 
+        
+        const message = {
+            content: `🚨 **มีการแจ้งโอนเงินใหม่!** 🚨\n👤 ผู้ใช้: \`${currentUserEmail}\`\n💰 ยอดโอน: **${currentTopupAmount} บาท**\n⏰ เวลา: ${new Date().toLocaleString('th-TH')}\n👉 แอดมินรีบเข้าไปเช็คสลิปและกดอนุมัติในระบบเว็บด้วยครับ!`
+        };
+
+        // ยิงข้อมูลไป Discord
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(message)
+        }).then(() => {
+            alert(`ระบบได้รับแจ้งยอดโอน ${currentTopupAmount} บาท ของคุณแล้ว!\n\nแอดมินกำลังตรวจสอบสลิปและจะบวก Points ให้ภายใน 5-10 นาทีครับ`);
+            showToast("ส่งเรื่องแจ้งโอนสำเร็จ");
+        }).catch(err => {
+            console.log("Discord Webhook Error:", err);
+            // ถ้ายิง Discord พลาด ก็ยังให้ขึ้นว่าสำเร็จ เพราะข้อมูลบันทึกลง Firebase แล้ว
+            showToast("ส่งเรื่องแจ้งโอนสำเร็จ");
+        });
+    });
+}
+
+// ================= ระบบโปรไฟล์ =================
+function saveProfileData() {
+    const newName = document.getElementById('profile-display-name').value.trim();
+    if(!newName) return alert("กรุณาตั้งชื่อที่ต้องการแสดงผลครับ");
+    db.collection('users').doc(currentUserId).update({
+        displayName: newName
+    }).then(() => {
+        showToast("บันทึกชื่อโปรไฟล์สำเร็จ!");
+    });
+}
+
+// ================= ระบบ UI ตั้งค่าเกม =================
 function getSavedValue(id, defaultVal) {
     const saved = localStorage.getItem('hk_setting_' + id);
     return saved !== null ? parseFloat(saved) : defaultVal;
@@ -1197,108 +1139,75 @@ function makeToggle(containerId, items) {
 }
 
 function initializeAllInputs() {
-    // 1. วาดกล่องปกติ
     Object.keys(defaultSliderData).forEach(key => {
         if(key === 'sliders-vip-wood' || key === 'sliders-vip-knife') return; 
         makeSlider(key, defaultSliderData[key]);
     });
     Object.keys(defaultToggleData).forEach(key => { makeToggle(key, defaultToggleData[key]); });
-    
-    // 2. เช็ค VIP และวาดกล่อง
     checkVipUnlock();
 }
 
 function updateEconomyUI() {
+    const displayName = userData.displayName || currentUserEmail;
+    document.getElementById('navbar-user-btn').innerHTML = `👤 ${displayName} &#9660;`;
+    
+    const nameInput = document.getElementById('profile-display-name');
+    if(nameInput && !nameInput.value && userData.displayName) {
+        nameInput.value = userData.displayName;
+    }
+
     document.getElementById('nav-points').innerHTML = `&#9679; ${userData.points}`;
     document.getElementById('nav-coins').innerHTML = `&#9829; ${userData.coins}`;
     document.getElementById('shop-points').textContent = userData.points;
     document.getElementById('shop-coins').textContent = userData.coins;
     document.getElementById('shop-vip').textContent = userData.vip;
     document.getElementById('home-vip-status').textContent = userData.vip === 'User' ? 'บัญชีมาตรฐาน' : 'บัญชี ' + userData.vip;
-    document.getElementById('home-vip-sub').textContent = userData.vip + ' Account';
+    document.getElementById('profile-points').textContent = userData.points;
+    document.getElementById('profile-vip').textContent = userData.vip;
     checkVipUnlock(); 
 }
 
 function checkVipUnlock() {
     const isVip = userData.vip === 'VIP' || userData.vip === 'Super VIP' || userData.vip === 'Admin';
-    
     if (isVip) {
         document.querySelectorAll('.vip-badge').forEach(b => b.style.display = 'none');
         makeSlider('sliders-vip-wood', defaultSliderData['sliders-vip-wood']);
         makeSlider('sliders-vip-knife', defaultSliderData['sliders-vip-knife']);
-        
         document.querySelectorAll('.card-header .reset-all-btn').forEach(btn => {
             if (btn.dataset.target === 'sliders-vip-wood' || btn.dataset.target === 'sliders-vip-knife') {
-                btn.disabled = false;
-                btn.style.opacity = '1';
-                btn.style.cursor = 'pointer';
+                btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer';
             }
         });
     } else {
         document.querySelectorAll('.vip-badge').forEach(b => b.style.display = 'inline-flex');
         makeVipSlider('sliders-vip-wood', defaultSliderData['sliders-vip-wood']);
         makeVipSlider('sliders-vip-knife', defaultSliderData['sliders-vip-knife']);
-        
         document.querySelectorAll('.card-header .reset-all-btn').forEach(btn => {
             if (btn.dataset.target === 'sliders-vip-wood' || btn.dataset.target === 'sliders-vip-knife') {
-                btn.disabled = true;
-                btn.style.opacity = '0.5';
-                btn.style.cursor = 'not-allowed';
+                btn.disabled = true; btn.style.opacity = '0.5'; btn.style.cursor = 'not-allowed';
             }
         });
     }
 }
 
-function buyVIP(type, pricePerDay, inputId) {
-    if(!currentUserId) return alert("กรุณาเข้าสู่ระบบก่อน");
-    const days = parseInt(document.getElementById(inputId).value);
-    if(isNaN(days) || days <= 0) return alert("ระบุจำนวนวันให้ถูกต้อง");
-    const totalCost = pricePerDay * days;
-    if(userData.points < totalCost) return alert(`Points ของคุณไม่พอ! (ต้องการ ${totalCost} Points)`);
-
-    if(confirm(`ยืนยันการเช่า ${type} จำนวน ${days} วัน ในราคา ${totalCost} Points?`)) {
-        db.collection('users').doc(currentUserId).update({
-            points: userData.points - totalCost,
-            vip: type
-        }).then(() => showToast(`อัปเกรดสถานะเป็น ${type} เรียบร้อยแล้ว!`));
-    }
-}
-
-function exchangeCoins(pointsCost, coinsGot) {
-    if(!currentUserId) return alert("กรุณาเข้าสู่ระบบก่อน");
-    if(userData.points < pointsCost) return alert(`Points ของคุณไม่พอ! (ต้องการ ${pointsCost} Points)`);
-
-    if(confirm(`ยืนยันการแลก ${pointsCost} Points เป็น ${coinsGot} Premium Coins?`)) {
-        db.collection('users').doc(currentUserId).update({
-            points: userData.points - pointsCost,
-            coins: userData.coins + coinsGot
-        }).then(() => showToast(`แลกเปลี่ยนสำเร็จ! ได้รับ ${coinsGot} Coins`));
-    }
-}
-
-function simulateTopup() {
-    if(!currentUserId) return alert("กรุณาเข้าสู่ระบบก่อน (หากเล่นออฟไลน์จะไม่ได้รับพอยต์)");
-    const amount = parseInt(document.getElementById('simulate-amount').value);
-    if(isNaN(amount) || amount <= 0) return alert("กรุณากรอกจำนวนเงินให้ถูกต้อง");
-
-    db.collection('users').doc(currentUserId).update({
-        points: userData.points + amount
-    }).then(() => {
-        showToast(`เติมเงินสำเร็จ! ได้รับ ${amount} Points`);
-    }).catch(err => alert("เกิดข้อผิดพลาด: " + err));
-}
-
-// ---------------- โค้ดสมัครสมาชิก & ล็อกอิน (เพิ่มตรวจสอบ License Key) ----------------
-function performLogin() {
+// ================= ระบบสมาชิก (Auth) =================
+async function performLogin() {
     const email = document.getElementById('login-email').value;
     const pass = document.getElementById('login-password').value;
-    if(!email || !pass) return alert("กรุณากรอกอีเมลและรหัสผ่านให้ครบถ้วน");
-
-    if (typeof auth !== 'undefined') {
-        auth.signInWithEmailAndPassword(email, pass)
-            .then(() => showToast("เข้าสู่ระบบสำเร็จ!"))
-            .catch((error) => alert("ข้อผิดพลาด: อีเมลหรือรหัสผ่านไม่ถูกต้อง"));
-    } else { login(); } 
+    if(!email || !pass) return alert("กรุณากรอกอีเมลและรหัสผ่าน");
+    
+    // โชว์หน้าโหลดตอนล็อกอิน
+    document.getElementById('auth-loading').style.display = 'flex';
+    document.getElementById('auth-login').classList.add('hidden');
+    
+    try { 
+        await auth.signInWithEmailAndPassword(email, pass); 
+        showToast("เข้าสู่ระบบสำเร็จ!"); 
+    } catch(err) { 
+        document.getElementById('auth-loading').style.display = 'none';
+        document.getElementById('auth-login').classList.remove('hidden');
+        alert("รหัสผ่านไม่ถูกต้อง หรือไม่มีบัญชีนี้ในระบบ"); 
+    }
 }
 
 async function performRegister() {
@@ -1311,95 +1220,54 @@ async function performRegister() {
     if(!email || !pass || !confirmPass || !sid || !license) return alert("กรุณากรอกข้อมูลให้ครบถ้วนทุกช่อง!");
     if(pass !== confirmPass) return alert("รหัสผ่านไม่ตรงกัน!");
 
-    if (typeof auth !== 'undefined') {
-        try {
-            if (email !== ADMIN_EMAIL) {
-                const keyDoc = await db.collection('licenses').doc(license).get();
-                if (!keyDoc.exists) {
-                    return alert("License Key ไม่ถูกต้อง หรือไม่มีอยู่ในระบบ!");
-                }
-                const keyData = keyDoc.data();
-                if (keyData.used) {
-                    return alert("License Key นี้ถูกใช้งานไปแล้ว!");
-                }
-            }
+    document.getElementById('auth-loading').style.display = 'flex';
+    document.getElementById('auth-register').classList.add('hidden');
 
-            const userCredential = await auth.createUserWithEmailAndPassword(email, pass);
-            
-            if (email !== ADMIN_EMAIL) {
-                await db.collection('licenses').doc(license).update({
-                    used: true,
-                    usedBy: email,
-                    usedAt: new Date().toISOString()
-                });
-            }
-
-            await db.collection('users').doc(userCredential.user.uid).set({ 
-                email: email, 
-                points: 0, 
-                coins: 0, 
-                vip: (email === ADMIN_EMAIL ? 'Super VIP' : 'User'),
-                sid: sid,
-                licenseKey: license
-            });
-            showToast("สมัครสมาชิกและผูกเครื่องสำเร็จ!");
-
-        } catch(error) {
-            alert("เกิดข้อผิดพลาดในการสมัคร: " + error.message);
+    try {
+        if (email !== ADMIN_EMAIL) {
+            const keyDoc = await db.collection('licenses').doc(license).get();
+            if (!keyDoc.exists) throw new Error("License Key ไม่ถูกต้อง!");
+            if (keyDoc.data().used) throw new Error("License Key นี้ถูกใช้งานไปแล้ว!");
         }
-    } else { login(); } 
-}
 
-function performLogout() {
-    if(confirm("คุณต้องการออกจากระบบหรือไม่?")) {
-        if (typeof auth !== 'undefined') {
-            auth.signOut().then(() => {
-                showToast("ออกจากระบบแล้ว");
-                setTimeout(() => window.location.reload(), 1000);
-            });
-        } else { window.location.reload(); }
+        const userCredential = await auth.createUserWithEmailAndPassword(email, pass);
+        
+        if (email !== ADMIN_EMAIL) {
+            await db.collection('licenses').doc(license).update({ used: true, usedBy: email });
+        }
+
+        await db.collection('users').doc(userCredential.user.uid).set({ 
+            email: email, points: 0, coins: 0, vip: (email === ADMIN_EMAIL ? 'Super VIP' : 'User'), sid: sid, licenseKey: license, displayName: ''
+        });
+        showToast("สมัครสมาชิกสำเร็จ!");
+    } catch(err) { 
+        document.getElementById('auth-loading').style.display = 'none';
+        document.getElementById('auth-register').classList.remove('hidden');
+        alert(err.message); 
     }
 }
 
-// ---------------- Navigation & SID Modal ----------------
-function showRegister() {
-    document.getElementById('auth-login').classList.add('hidden');
-    document.getElementById('auth-register').classList.remove('hidden');
+function performLogout() {
+    if(confirm("ออกจากระบบหรือไม่?")) {
+        auth.signOut().then(() => window.location.reload());
+    }
 }
-function showLogin() {
-    document.getElementById('auth-register').classList.add('hidden');
-    document.getElementById('auth-login').classList.remove('hidden');
-}
-function login() {
-    document.getElementById('auth-login').style.display = 'none';
-    document.getElementById('auth-register').style.display = 'none';
-    document.getElementById('app-dashboard').classList.add('show');
-}
+
+// Navigation Functions
+function showRegister() { document.getElementById('auth-login').classList.add('hidden'); document.getElementById('auth-register').classList.remove('hidden'); }
+function showLogin() { document.getElementById('auth-register').classList.add('hidden'); document.getElementById('auth-login').classList.remove('hidden'); }
+function showToast(msg) { const t = document.getElementById('toast-alert'); t.innerHTML = '&#10004; ' + msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+
 function switchToTab(targetId) {
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-    const tabToActivate = document.querySelector(`.nav-tab[data-target="${targetId}"]`);
-    if(tabToActivate) tabToActivate.classList.add('active');
-
-    document.querySelectorAll('.view-container').forEach(view => view.classList.remove('active'));
-    const viewToActivate = document.getElementById(targetId);
-    if(viewToActivate) viewToActivate.classList.add('active');
-    
+    document.querySelector(`.nav-tab[data-target="${targetId}"]`).classList.add('active');
+    document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+    document.getElementById(targetId).classList.add('active');
     if(targetId === 'view-admin') loadAdminData(); 
 }
 document.querySelectorAll('.nav-tab').forEach(tab => {
-  tab.addEventListener('click', function() {
-    const targetId = this.getAttribute('data-target');
-    if (targetId) switchToTab(targetId);
-  });
+  tab.addEventListener('click', function() { switchToTab(this.getAttribute('data-target')); });
 });
-
-// ฟังก์ชันเปิด Modal SID
-function openSidModal() {
-    document.getElementById('modal-sid-help').classList.add('show');
-}
-function closeSidModal() {
-    document.getElementById('modal-sid-help').classList.remove('show');
-}
 
 const btnSaveSettings = document.getElementById('btn-save-settings');
 if(btnSaveSettings) {
@@ -1413,24 +1281,6 @@ if(btnSaveSettings) {
             if(id) localStorage.setItem('hk_toggle_' + id, tog.classList.contains('on'));
         });
         showToast('บันทึกการตั้งค่าลงเครื่องสำเร็จ!');
-    });
-}
-
-const btnResetAll = document.getElementById('btn-reset-all');
-if(btnResetAll) {
-    btnResetAll.addEventListener('click', function() {
-        if(confirm('คุณต้องการล้างค่าที่ตั้งไว้ทั้งหมดและกลับไปใช้ค่าเริ่มต้นหรือไม่?')) {
-            const keysToRemove = [];
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('hk_setting_') || key.startsWith('hk_toggle_')) {
-                    keysToRemove.push(key);
-                }
-            }
-            keysToRemove.forEach(key => localStorage.removeItem(key));
-            initializeAllInputs(); 
-            showToast('รีเซ็ตการตั้งค่าเรียบร้อยแล้ว');
-        }
     });
 }
 
@@ -1466,7 +1316,7 @@ function renderMyPresets() {
                   <div class="preset-dot d" style="background:#5c6bc0;">${firstChar}</div>
                   <div class="preset-info">
                     <div class="preset-name">${preset.name}</div>
-                    <div class="preset-sub">โดย คุณ</div>
+                    <div class="preset-sub">ในเครื่องของคุณ</div>
                   </div>
                   <button class="sidebar-delete-btn" title="ลบ Preset">&#128465;</button>
                 `;
@@ -1492,7 +1342,7 @@ function renderMyPresets() {
                         <div class="scard-sub">สร้างเมื่อ: ${preset.date}</div>
                     </div>
                     <div class="scard-right">
-                        <div class="scard-type-tag scard-type-user">User</div>
+                        <div class="scard-type-tag scard-type-user">Local</div>
                         <button class="btn-detail" onclick="deletePreset(${index})" style="background:#e57373; color:#fff;">&#128465; ลบ</button>
                     </div>
                 `;
@@ -1512,7 +1362,7 @@ function renderMyPresets() {
                         <div class="scard-sub">สร้างเมื่อ: ${preset.date}</div>
                     </div>
                     <div class="scard-right">
-                        <div class="scard-type-tag scard-type-user">User</div>
+                        <div class="scard-type-tag scard-type-user">Local</div>
                         <button class="btn-use" onclick="applyMyPreset(${index})">&#9654; ใช้</button>
                     </div>
                 `;
@@ -1568,9 +1418,11 @@ function saveNewPreset() {
         }
     });
 
+    const displayName = userData.displayName || currentUserEmail || "Admin";
+
     const newPreset = {
         name: nameInput,
-        author: currentUserEmail || "Admin",
+        author: displayName,
         date: new Date().toLocaleDateString('th-TH'),
         data: settingsSnapshot
     };
@@ -1629,6 +1481,21 @@ function confirmImport() {
     } catch(e) { alert('โค้ดนี้ไม่สามารถใช้งานได้'); }
 }
 
+// ค้นหา Preset แบบ Real-time
+function filterCommunityPresets() {
+    const query = document.getElementById('search-preset-input').value.toLowerCase();
+    const cards = document.querySelectorAll('#community-preset-container .community-card');
+    cards.forEach(card => {
+        const title = card.querySelector('.scard-title').textContent.toLowerCase();
+        const author = card.querySelector('.scard-sub span').textContent.toLowerCase();
+        if(title.includes(query) || author.includes(query)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
 let fetchedCommunityPresets = {};
 
 function renderSearchGrid() {
@@ -1669,7 +1536,7 @@ function loadCommunityPresets() {
     const container = document.getElementById('community-preset-container');
     if(typeof db === 'undefined') return;
 
-    db.collection('presets').orderBy('date', 'desc').limit(20).get().then((querySnapshot) => {
+    db.collection('presets').orderBy('date', 'desc').limit(30).get().then((querySnapshot) => {
         if(querySnapshot.empty) return;
         fetchedCommunityPresets = {}; 
         querySnapshot.forEach((doc) => {
@@ -1748,7 +1615,6 @@ function addCurrentPresetToMine() {
     }
     
     let myPresets = JSON.parse(localStorage.getItem('hk_my_presets')) || [];
-    
     if(myPresets.some(p => p.name === presetName)) {
         alert('คุณมี Preset ชื่อนี้ในรายการของคุณแล้ว!');
         closePresetDetailModal();
@@ -1763,9 +1629,56 @@ function addCurrentPresetToMine() {
     renderMyPresets();
 }
 
+function buyVIP(type, pricePerDay, inputId) {
+    if(!currentUserId) return alert("กรุณาเข้าสู่ระบบก่อน");
+    const days = parseInt(document.getElementById(inputId).value);
+    if(isNaN(days) || days <= 0) return alert("ระบุจำนวนวันให้ถูกต้อง");
+    const totalCost = pricePerDay * days;
+    if(userData.points < totalCost) return alert(`Points ของคุณไม่พอ! (ต้องการ ${totalCost} Points)`);
+
+    if(confirm(`ยืนยันการเช่า ${type} จำนวน ${days} วัน ในราคา ${totalCost} Points?`)) {
+        db.collection('users').doc(currentUserId).update({
+            points: userData.points - totalCost,
+            vip: type
+        }).then(() => showToast(`อัปเกรดสถานะเป็น ${type} เรียบร้อยแล้ว!`));
+    }
+}
+
+function exchangeCoins(pointsCost, coinsGot) {
+    if(!currentUserId) return alert("กรุณาเข้าสู่ระบบก่อน");
+    if(userData.points < pointsCost) return alert(`Points ของคุณไม่พอ! (ต้องการ ${pointsCost} Points)`);
+
+    if(confirm(`ยืนยันการแลก ${pointsCost} Points เป็น ${coinsGot} Premium Coins?`)) {
+        db.collection('users').doc(currentUserId).update({
+            points: userData.points - pointsCost,
+            coins: userData.coins + coinsGot
+        }).then(() => showToast(`แลกเปลี่ยนสำเร็จ! ได้รับ ${coinsGot} Coins`));
+    }
+}
+
 // ---------- ฟังก์ชันแอดมิน ----------
 function loadAdminData() {
     if (typeof db === 'undefined') return;
+
+    // โหลดแจ้งเตือนโอนเงิน
+    const topupTable = document.getElementById('admin-topup-table');
+    if(topupTable) {
+        db.collection('topup_requests').where('status', '==', 'รอดำเนินการ').get().then((snap) => {
+            topupTable.innerHTML = '<tr><th>อีเมล</th><th>ยอดโอน (บาท)</th><th>วันที่แจ้ง</th><th>จัดการ</th></tr>';
+            snap.forEach((doc) => {
+                const r = doc.data();
+                topupTable.innerHTML += `<tr>
+                    <td>${r.email}</td>
+                    <td style="color:#4caf50; font-weight:bold;">${r.amount}</td>
+                    <td style="font-size:11px; color:#aaa;">${r.date}</td>
+                    <td>
+                        <button style="background:#4caf50; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;" onclick="approveTopup('${doc.id}', '${r.uid}', ${r.amount})">อนุมัติ (+Points)</button>
+                        <button style="background:#e57373; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;" onclick="rejectTopup('${doc.id}')">ลบ</button>
+                    </td>
+                </tr>`;
+            });
+        });
+    }
 
     const keysTable = document.getElementById('admin-keys-table');
     if(keysTable) {
@@ -1791,14 +1704,14 @@ function loadAdminData() {
     const usersTable = document.getElementById('admin-users-table');
     if(usersTable) {
         db.collection('users').get().then((querySnapshot) => {
-            usersTable.innerHTML = '<tr><th>อีเมล</th><th>Points</th><th>Coins</th><th>สถานะ/SID</th><th>จัดการ</th></tr>';
+            usersTable.innerHTML = '<tr><th>อีเมล / ชื่อเล่น</th><th>Points</th><th>สถานะ/SID</th><th>จัดการ</th></tr>';
             querySnapshot.forEach((doc) => {
                 const u = doc.data();
+                const dName = u.displayName ? `<br><span style="color:#f5a623; font-size:12px;">(${u.displayName})</span>` : '';
                 usersTable.innerHTML += `
                     <tr>
-                        <td>${u.email || doc.id}</td>
+                        <td>${u.email} ${dName}</td>
                         <td>${u.points || 0}</td>
-                        <td>${u.coins || 0}</td>
                         <td>
                             VIP: ${u.vip || 'User'}<br>
                             <span style="font-size:10px; color:#888;">SID: ${u.sid || 'ไม่ได้ยืนยัน'}<br>Key: ${u.licenseKey || '-'}</span>
@@ -1831,6 +1744,26 @@ function loadAdminData() {
                 `;
             });
         });
+    }
+}
+
+function approveTopup(docId, userId, amount) {
+    if(confirm(`ยืนยันการอนุมัติโอนยอด ${amount} บาท ให้ผู้ใช้นี้?`)) {
+        db.collection('users').doc(userId).get().then((userDoc) => {
+            const currentPts = userDoc.data().points || 0;
+            db.collection('users').doc(userId).update({ points: currentPts + amount }).then(() => {
+                db.collection('topup_requests').doc(docId).update({ status: 'อนุมัติแล้ว' }).then(() => {
+                    showToast('เพิ่ม Points แล้ว');
+                    loadAdminData();
+                });
+            });
+        });
+    }
+}
+
+function rejectTopup(docId) {
+    if(confirm("ลบคำขอนี้ทิ้ง?")) {
+        db.collection('topup_requests').doc(docId).delete().then(() => loadAdminData());
     }
 }
 
@@ -1895,6 +1828,9 @@ function deletePresetByAdmin(docId) {
         });
     }
 }
+
+function openSidModal() { document.getElementById('modal-sid-help').classList.add('show'); }
+function closeSidModal() { document.getElementById('modal-sid-help').classList.remove('show'); }
 </script>
 </body>
 </html>
